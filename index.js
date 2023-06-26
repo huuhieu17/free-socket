@@ -1,20 +1,21 @@
-const WebSocket = require('ws');
-var express = require("express");
+const express = require('express');
 const app = express();
-const server = app.listen(8080, () => {
-  console.log("Server started on port 8080");
-});
+const server = require('http').createServer(app);
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ server: server });
 
-const wss = new WebSocket.Server({ server });
-
-wss.on('connection', (ws) => {
+wss.on('connection', (socket) => {
   console.log('Client connected');
-
-  ws.on('message', (message) => {
+  
+  socket.on('message', (message) => {
     console.log(`Received message: ${message}`);
   });
-
-  ws.on('close', () => {
+  
+  socket.on('close', () => {
     console.log('Client disconnected');
   });
+});
+
+server.listen(8080, () => {
+  console.log('Listening on port 8080');
 });
