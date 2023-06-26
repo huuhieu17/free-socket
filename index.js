@@ -1,17 +1,20 @@
+const WebSocket = require('ws');
 var express = require("express");
 const app = express();
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+const server = app.listen(8080, () => {
+  console.log("Server started on port 8080");
 });
 
-io.on("connection", function (socket) {
-  console.log("a user connected", socket);
-  socket.emit("connected", "User connected");
-});
+const wss = new WebSocket.Server({ server });
 
+wss.on('connection', (ws) => {
+  console.log('Client connected');
 
-http.listen(3000, function () {
-  console.log("listening on *:3000");
+  ws.on('message', (message) => {
+    console.log(`Received message: ${message}`);
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
 });
