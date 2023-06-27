@@ -4,6 +4,10 @@ const server = require('http').createServer(app);
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server: server, path: "/ws" });
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
 wss.on('connection', (socket) => {
   console.log('Client connected');
   
