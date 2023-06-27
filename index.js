@@ -6,7 +6,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server: server, path: "/ws" });
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Event : "updateTime" - send message per 2second ');
 })
 
 wss.on('connection', (socket) => {
