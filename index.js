@@ -1,3 +1,4 @@
+const port = process.env.PORT || 3000;
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
@@ -20,6 +21,6 @@ wss.on('connection', (socket) => {
   });
 });
 
-server.listen(8080, () => {
+server.listen(port, () => {
   console.log('Listening on port 8080');
 });
