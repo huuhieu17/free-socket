@@ -11,7 +11,6 @@ app.get('/', (req, res) => {
 
 wss.on('connection', (socket) => {
   console.log('Client connected');
-  
   socket.on('message', (message) => {
     console.log(`Received message: ${message}`);
   });
@@ -20,6 +19,12 @@ wss.on('connection', (socket) => {
     console.log('Client disconnected');
   });
 });
+
+setInterval(() => {
+  wss.emit("updateTime", Date.now())
+}, 2000);
+
+
 
 server.listen(port, () => {
   console.log('Listening on port 8080');
