@@ -18,11 +18,13 @@ wss.on('connection', (socket) => {
   socket.on('close', () => {
     console.log('Client disconnected');
   });
+
+  setInterval(() => {
+  socket.send(Date.now())
+}, 2000);
 });
 
-setInterval(() => {
-  wss.emit("updateTime", Date.now())
-}, 2000);
+
 
 
 
